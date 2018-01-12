@@ -1,0 +1,52 @@
+1) usuwamy grob: usuniety jest nieboszczyk i purchase;
+2) usuwamy purchase: grob ma null purchase i null grabarz;
+3) usuwamy grabarza: grob ma null grabarza;
+
+
+1)
+
+SELECT deadman.name, deadman.id as dead_id, grave.id as grave, purchase.id as purchase FROM deadman LEFT OUTER JOIN grave ON ( deadman.grave_id=grave.id) LEFT OUTER JOIN purchase ON (purchase.grave_id=grave.id) LIMIT 1;
++-------+---------+-------+----------+
+| name  | dead_id | grave | purchase |
++-------+---------+-------+----------+
+| Zenon |       1 |     1 |        1 |
++-------+---------+-------+----------+
+
+DELETE FROM grave WHERE id=1;
+Query OK, 1 row affected (0.14 sec)
+
+SELECT * FROM deadman WHERE deadman.id=1;
+Empty set (0.00 sec)
+
+SELECT * FROM purchase WHERE purchase.id=1;
+Empty set (0.00 sec)
+
+
+2) usuwamy purchase: grob ma null purchase i null grabarz;
+SELECT deadman.name, deadman.id as dead_id, grave.id as grave, purchase.id as purchase FROM deadman LEFT OUTER JOIN grave ON ( deadman.grave_id=grave.id) LEFT OUTER JOIN purchase ON (purchase.grave_id=grave.id) LIMIT 1;
++-------+---------+-------+----------+
+| name  | dead_id | grave | purchase |
++-------+---------+-------+----------+
+| Zenon |       1 |     1 |        1 |
++-------+---------+-------+----------+
+1 row in set (0.00 sec)
+
+DELETE FROM purchase WHERE id=1;
+Query OK, 1 row affected (0.00 sec)
+
+SELECT deadman.name, deadman.id as dead_id, grave.gravedigger_id as digger, purchase.id as purchase FROM deadman LEFT OUTER JOIN grave ON ( deadman.grave_id=grave.id) LEFT OUTER JOIN purchase ON (purchase.grave_id=grave.id) LIMIT 1;
++-------+---------+-------+----------+
+| name  | dead_id | grave | purchase |
++-------+---------+-------+----------+
+| Zenon |       1 |     1 |     NULL |
++-------+---------+-------+----------+
+1 row in set (0.00 sec)
+
+SELECT * FROM grave WHERE id=1;
++----+----------+-------------+----------------+
+| id | location | purchase_id | gravedigger_id |
++----+----------+-------------+----------------+
+|  1 | 0,0      |        NULL |              1 |
++----+----------+-------------+----------------+
+
+
