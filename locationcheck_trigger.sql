@@ -1,0 +1,6 @@
+DELIMITER //
+CREATE TRIGGER locationCheck
+BEFORE INSERT ON grave
+FOR EACH ROW
+CALL getLocation()
+DELIMITER ;
